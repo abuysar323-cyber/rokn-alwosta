@@ -1,176 +1,399 @@
+ <script>.
+
+الحل الفوري (في دقيقة واحدة):
+
+سأعطيك الآن كوداً محدثاً ومضغوطاً يعتمد على ملف تنسيق CSS مدمج بالكامل داخل الصفحة نفسه (دون الحاجة لأي روابط خارجية قد تحجبها الشبكة أو المتصفح)، مع إضافة الشعار الخاص بك تلقائياً.
+1. ارجع إلى مستودعك rokn-alwosta على GitHub واضغط على ملف index.html.
+2. اضغط على أيقونة القلم (Edit this file) في أعلى اليمين.
+3. امسح كل ما بداخل الملف (Ctrl + A ثم Delete)، والصق الكود الجديد أدناه بالكامل، ثم اضغط Commit changes.
+html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ركن الوسطى للخدمات والقرطاسيات</title>
-  <script src="https://tailwindcss.com"></script>
   <link href="https://googleapis.com" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cloudflare.com" />
   <style>
-    body { font-family: 'Cairo', sans-serif; background-color: #FFFFFF; color: #1A1A1A; scroll-behavior: smooth; }
-    .bg-primary { background-color: #9E1B1E; }
-    .bg-primary:hover { background-color: #7A1316; }
-    .text-primary { color: #9E1B1E; }
-    .border-primary { border-color: #9E1B1E; }
-    .bg-secondary { background-color: #15803D; }
-    .bg-secondary:hover { background-color: #116630; }
-    .text-secondary { color: #15803D; }
-  </style>
-</head>
-<body class="antialiased">
+    :root { --primary: #9E1B1E; --primary-dark: #7A1316; --secondary: #15803D; --secondary-dark: #116630; --dark: #1A1A1A; --light: #F9FAFB; --border: #E5E7EB; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Cairo', sans-serif; background: #fff; color: var(--dark); line-height: 1.6; scroll-behavior: smooth; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    
+    /* الشريط العلوي */
+    .top-bar { background: var(--primary); color: #fff; text-align: center; padding: 8px 15px; font-size: 13px; font-weight: 700; }
+    header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
+    .nav-wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-logo { width: 46px; height: 46px; border-radius: 10px; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; overflow: hidden; }
+    .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
+    .brand-title { font-weight: 800; font-size: 18px; line-height: 1.2; }
+    .brand-sub { font-size: 12px; color: #6B7280; }
+    .nav-links { display: flex; gap: 22px; font-weight: 700; font-size: 14px; color: #374151; }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; border-radius: 10px; font-weight: 700; font-size: 14px; transition: 0.2s; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-secondary { background: var(--secondary); color: #fff; }
+    .btn-secondary:hover { background: var(--secondary-dark); }
+    .btn-outline { border: 2px solid var(--dark); color: var(--dark); background: transparent; }
+    .btn-outline:hover { background: var(--dark); color: #fff; }
+    .cart-btn { position: relative; background: var(--light); border: 1px solid var(--border); padding: 10px 14px; border-radius: 10px; font-weight: 700; }
+    .cart-badge { position: absolute; top: -6px; right: -6px; background: var(--primary); color: #fff; font-size: 11px; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
-  <!-- =========================================================
-       إعدادات الربط السريع (ضع رابط Google Sheets CSV هنا)
-       ملاحظة: الموقع يعمل ببيانات افتراضية جاهزة حتى تضع رابطك
-  ========================================================== -->
-  <script>
-    const GOOGLE_SHEET_CSV_URL = "ضع_رابط_ملف_جوجل_CSV_هنا";
-  </script>
+    /* القسم الرئيسي */
+    .hero { padding: 60px 0; background: #fff; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+    .badge-pill { display: inline-flex; align-items: center; gap: 8px; background: #ECFDF5; color: var(--secondary); border: 1px solid #A7F3D0; padding: 6px 14px; border-radius: 50px; font-size: 12px; font-weight: 700; margin-bottom: 18px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--secondary); }
+    .hero h1 { font-size: 36px; font-weight: 800; line-height: 1.3; margin-bottom: 16px; }
+    .hero h1 span { color: var(--primary); }
+    .hero p { color: #4B5563; font-size: 16px; margin-bottom: 26px; }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-card { background: var(--light); border: 1px solid var(--border); border-radius: 16px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+    .hero-card img { width: 100%; height: 280px; object-fit: cover; border-radius: 12px; }
+    .hero-features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+    .hero-feat-box { background: #fff; padding: 12px; border-radius: 10px; border: 1px solid var(--border); text-align: center; font-weight: 700; font-size: 13px; }
 
-  <!-- الشريط الإعلاني العلوي -->
-  <div id="announcement-bar" class="bg-primary text-white text-center text-sm py-2 px-4 font-semibold">
-    <span id="announcement-text">مرحباً بكم في ركن الوسطى — إنجاز فوري للخدمات الطلابية والحكومية وتشكيلة متكاملة من القرطاسيات والأعمال الفنية</span>
-  </div>
+    /* الإحصائيات */
+    .stats { background: var(--light); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 35px 0; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+    .stat-box { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
+    .stat-num { font-size: 28px; font-weight: 800; color: var(--primary); }
+    .stat-num.green { color: var(--secondary); }
+    .stat-label { font-size: 13px; font-weight: 700; color: #4B5563; margin-top: 4px; }
 
-  <!-- شريط التنقل العلوي -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-lg bg-primary text-white flex items-center justify-center font-extrabold text-xl shadow">ر</div>
-        <div>
-          <span class="font-extrabold text-lg text-[#1A1A1A] block leading-tight">ركن الوسطى</span>
-          <span class="text-xs text-gray-500 block">للخدمات والقرطاسيات</span>
-        </div>
-      </a>
+    /* الأقسام العامة */
+    section { padding: 65px 0; }
+    .sec-head { text-align: center; max-width: 650px; margin: 0 auto 40px; }
+    .sec-tag { color: var(--primary); font-weight: 700; font-size: 13px; }
+    .sec-head h2 { font-size: 28px; font-weight: 800; margin: 6px 0 10px; }
+    .sec-head p { color: #6B7280; font-size: 14px; }
 
-      <nav class="hidden md:flex items-center gap-6 text-sm font-bold text-gray-700">
-        <a href="#hero" class="hover:text-primary transition">الرئيسية</a>
-        <a href="#services" class="hover:text-primary transition">خدماتنا والمختصون</a>
-        <a href="#store" class="hover:text-primary transition">القرطاسيات والأعمال الفنية</a>
-        <a href="#packages" class="hover:text-primary transition">باقات التوفير</a>
-        <a href="#tracking" class="hover:text-primary transition">تابع طلبك</a>
-        <a href="#contact" class="hover:text-primary transition">تواصل معنا</a>
-      </nav>
+    /* شبكة الخدمات */
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: 0.2s; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.06); }
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+    .card h3 { font-size: 18px; font-weight: 800; }
+    .status-pill { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 50px; white-space: nowrap; }
+    .status-on { background: #ECFDF5; color: var(--secondary); border: 1px solid #A7F3D0; }
+    .status-off { background: #FEF2F2; color: var(--primary); border: 1px solid #FECACA; }
+    .card-desc { color: #4B5563; font-size: 14px; margin-bottom: 15px; }
+    .req-toggle { background: none; color: #4B5563; font-size: 12px; font-weight: 700; padding: 6px 0; text-align: right; }
+    .req-list { background: var(--light); padding: 10px 24px 10px 10px; border-radius: 8px; font-size: 12px; color: #374151; margin-top: 6px; }
+    .card-footer { border-top: 1px solid var(--border); padding-top: 14px; margin-top: 15px; }
+    .spec-row { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; margin-bottom: 12px; }
 
-      <div class="flex items-center gap-3">
-        <button onclick="toggleCart()" class="relative p-2.5 rounded-lg border border-gray-200 hover:bg-gray-50 text-[#1A1A1A]" title="سلة الطلبات">
-          <i class="fa-solid fa-cart-shopping text-lg"></i>
-          <span id="cart-badge" class="hidden absolute -top-1.5 -right-1.5 bg-primary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
-        </button>
-        <a href="#services" class="hidden sm:inline-block bg-primary text-white text-sm font-bold px-4 py-2.5 rounded-lg transition shadow-sm">
-          اطلب خدمتك الآن
-        </a>
-        <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden p-2 rounded-lg border border-gray-200">
-          <i class="fa-solid fa-bars text-lg"></i>
-        </button>
-      </div>
-    </div>
+    /* المتجر والقرطاسيات */
+    .bg-gray { background: var(--light); border-top: 1px solid var(--border); }
+    .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 30px; }
+    .filter-btn { padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; background: #fff; border: 1px solid var(--border); color: #374151; }
+    .filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .prod-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+    .prod-img { position: relative; height: 170px; background: #F3F4F6; }
+    .prod-img img { width: 100%; height: 100%; object-fit: cover; }
+    .prod-cat { position: absolute; top: 10px; right: 10px; background: rgba(26,26,26,0.85); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px; }
+    .prod-body { padding: 15px; }
+    .prod-price { font-size: 16px; font-weight: 800; color: var(--primary); margin: 10px 0; }
+    .prod-actions { display: flex; gap: 8px; padding: 0 15px 15px; }
 
-    <!-- قائمة الجوال -->
-    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-4 py-3 space-y-2 text-sm font-bold">
-      <a href="#hero" onclick="closeMobileMenu()" class="block py-2 hover:text-primary">الرئيسية</a>
-      <a href="#services" onclick="closeMobileMenu()" class="block py-2 hover:text-primary">خدماتنا والمختصون</a>
-      <a href="#store" onclick="closeMobileMenu()" class="block py-2 hover:text-primary">القرطاسيات والأعمال الفنية</a>
-      <a href="#packages" onclick="closeMobileMenu()" class="block py-2 hover:text-primary">باقات التوفير</a>
-      <a href="#tracking" onclick="closeMobileMenu()" class="block py-2 hover:text-primary">تابع طلبك</a>
-      <a href="#contact" onclick="closeMobileMenu()" class="block py-2 hover:text-primary">تواصل معنا</a>
-    </div>
-  </header>
+    /* متابعة الطلب */
+    .track-box { max-width: 540px; margin: 0 auto; text-align: center; }
+    .track-form { display: flex; gap: 10px; margin-top: 20px; }
+    .track-form input { flex: 1; padding: 12px 16px; border: 1px solid #D1D5DB; border-radius: 10px; font-family: inherit; font-size: 14px; }
+    .track-res { margin-top: 16px; padding: 15px; border-radius: 10px; text-align: right; font-size: 14px; }
 
-  <!-- القسم الرئيسي (Hero) -->
-  <section id="hero" class="py-12 md:py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-center">
-      <div class="space-y-6">
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 text-secondary text-xs font-bold border border-green-200">
-          <span class="w-2 h-2 rounded-full bg-secondary"></span>
-          سرعة في الإنجاز • دقة في التنفيذ • سرية تامة
-        </div>
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
-          وجهتك المتكاملة لـ<span class="text-primary">خدمات الطالب والخدمات الحكومية</span> والقرطاسيات والأعمال الفنية
-        </h1>
-        <p class="text-gray-600 text-base sm:text-lg leading-relaxed">
-          ننجز معاملاتك الإلكترونية، البحوث والتصاميم الطلابية، خدمات المنصات الحكومية، ونوفر كافة القرطاسيات والأعمال الفنية بأعلى معايير الجودة والموثوقية.
-        </p>
-        <div class="flex flex-wrap gap-3 pt-2">
-          <a id="hero-whatsapp-btn" href="https://wa.me" target="_blank" class="bg-secondary text-white font-bold px-6 py-3.5 rounded-lg shadow hover:shadow-md transition flex items-center gap-2">
-            <i class="fa-brands fa-whatsapp text-xl"></i>
-            اطلب خدمتك عبر الواتساب
-          </a>
-          <a href="#services" class="border-2 border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white font-bold px-6 py-3.5 rounded-lg transition">
-            استعرض خدماتنا ومنتجاتنا
-          </a>
-        </div>
-      </div>
+    /* التذييل والنوافذ */
+    footer { background: var(--dark); color: #fff; padding: 50px 0 25px; }
+    .footer-grid { display: grid; grid-template-columns: 1.2fr 0.8fr 1fr; gap: 35px; padding-bottom: 35px; border-bottom: 1px solid #374151; }
+    .footer h3, .footer h4 { margin-bottom: 14px; }
+    .footer p, .footer li { color: #9CA3AF; font-size: 14px; margin-bottom: 8px; list-style: none; }
+    .copyright { text-align: center; color: #6B7280; font-size: 12px; padding-top: 20px; }
+    .float-wa { position: fixed; bottom: 20px; left: 20px; z-index: 90; }
+    .float-menu { background: #fff; border: 1px solid var(--border); border-radius: 12px; width: 280px; box-shadow: 0 15px 30px rgba(0,0,0,0.15); margin-bottom: 10px; overflow: hidden; }
+    .float-menu-head { background: var(--secondary); color: #fff; padding: 12px 15px; font-weight: 700; font-size: 13px; display: flex; justify-content: space-between; }
+    .float-item { display: block; padding: 10px 15px; border-bottom: 1px solid #F3F4F6; font-size: 12px; }
+    .float-item:hover { background: var(--light); }
+    .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .modal-card { background: #fff; border-radius: 16px; max-width: 440px; width: 100%; padding: 24px; max-height: 85vh; overflow-y: auto; }
+    .hidden { display: none !important; }
 
-      <div class="relative">
-        <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-100 bg-[#F9FAFB] p-6">
-          <img src="https://unsplash.com" alt="مكتبة ركن الوسطى" class="w-full h-72 sm:h-80 object-cover rounded-xl" />
-          <div class="mt-4 grid grid-cols-2 gap-3 text-center">
-            <div class="bg-white p-3 rounded-lg border border-gray-100">
-              <i class="fa-solid fa-shield-halved text-secondary text-xl mb-1"></i>
-              <p class="font-bold text-sm">خصوصية وأمان تام</p>
-            </div>
-            <div class="bg-white p-3 rounded-lg border border-gray-100">
-              <i class="fa-solid fa-bolt text-primary text-xl mb-1"></i>
-              <p class="font-bold text-sm">ربط مباشر بالمختص</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    @media (max-width: 900px) {
+      .hero-grid, .grid-3, .footer-grid { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+يُرجى استخدام الرمز البرمجي بحذر.
+.nav-links { display: none; }
+}
+@media (max-width: 520px) { .grid-4 { grid-template-columns: 1fr; } }
 
-  <!-- شريط الإحصائيات -->
-  <section class="bg-[#F9FAFB] border-y border-gray-200 py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-      <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
-        <div class="text-2xl sm:text-3xl font-extrabold text-primary">+1500</div>
-        <div class="text-xs sm:text-sm font-bold text-gray-600 mt-1">معاملة منجزة بنجاح</div>
-      </div>
-      <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
-        <div class="text-2xl sm:text-3xl font-extrabold text-secondary">+800</div>
-        <div class="text-xs sm:text-sm font-bold text-gray-600 mt-1">طالب وباحث تم دعمهم</div>
-      </div>
-      <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
-        <div class="text-2xl sm:text-3xl font-extrabold text-[#1A1A1A]">100%</div>
-        <div class="text-xs sm:text-sm font-bold text-gray-600 mt-1">سرية وحماية للبيانات</div>
-      </div>
-      <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
-        <div class="text-2xl sm:text-3xl font-extrabold text-primary">24/7</div>
-        <div class="text-xs sm:text-sm font-bold text-gray-600 mt-1">استقبال الطلبات إلكترونياً</div>
-      </div>
-    </div>
-  </section>
 
-  <!-- قسم الخدمات والموظفين المختصين -->
-  <section id="services" class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-primary font-bold text-sm">تواصل مباشر مع المختص</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1A1A1A] mt-1">خدماتنا المتكاملة وفريق العمل</h2>
-        <p class="text-gray-600 text-sm mt-2">اختر الخدمة المطلوبة وتواصل مباشرة عبر الواتساب مع الموظف المختص، مع إمكانية الاطلاع على المستندات المطلوبة مسبقاً.</p>
-      </div>
+const GOOGLE_SHEET_CSV_URL = "ضع_رابط_ملف_جوجل_CSV_هنا";
+مرحباً بكم في ركن الوسطى — إنجاز فوري للخدمات الطلابية والحكومية وتشكيلة متكاملة من القرطاسيات والأعمال الفنية
+ر
 
-      <div id="services-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- يتم تعبئتها تلقائياً عبر الجافاسكربت -->
-      </div>
-    </div>
-  </section>
+ركن الوسطى
+للخدمات والقرطاسيات
 
-  <!-- قسم القرطاسيات والأعمال الفنية -->
-  <section id="store" class="py-16 bg-[#F9FAFB] border-t border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-2xl mx-auto mb-8">
-        <span class="text-secondary font-bold text-sm">تشكيلة متنوعة ومحدّثة</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1A1A1A] mt-1">القرطاسيات والأعمال الفنية</h2>
-        <p class="text-gray-600 text-sm mt-2">تصفح الأدوات المكتبية والمجسمات والوسائل التعليمية، وأضف طلباتك للسلة لإرسالها دفعة واحدة عبر الواتساب.</p>
-      </div>
 
-      <!-- فلاتر التصنيف -->
-      <div id="category-filters" class="flex flex-wrap justify-center gap-2 mb-8">
-        <!-- أزرار الفلترة -->
-      </div>
 
-      <!-- شبكة المنتجات -->
-      <div id="products-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+الرئيسية
+خدماتنا والمختصون
+القرطاسيات والأعمال الفنية
+باقات التوفير
+تابع طلبك
+تواصل معنا
+
+
+
+🛒 السلة 0
+
+اطلب خدمتك
+
+
+ سرعة في الإنجاز • دقة في التنفيذ • سرية تامة
+وجهتك المتكاملة لـخدمات الطالب والخدمات الحكومية والقرطاسيات والأعمال الفنية
+ننجز معاملاتك الإلكترونية، البحوث والتصاميم الطلابية، خدمات المنصات الحكومية، ونوفر كافة القرطاسيات والأعمال الفنية بأعلى معايير الجودة والموثوقية.
+💬 اطلب خدمتك عبر الواتساب
+استعرض خدماتنا ومنتجاتنا
+
+
+
+
+
+🛡️ خصوصية وأمان تام
+⚡ ربط مباشر بالمختص
+
+
++1500معاملة منجزة بنجاح
++800طالب وباحث تم دعمهم
+100%سرية وحماية للبيانات
+24/7استقبال الطلبات إلكترونياً
+
+تواصل مباشر مع المختص
+خدماتنا المتكاملة وفريق العمل
+اختر الخدمة المطلوبة وتواصل مباشرة عبر الواتساب مع الموظف المختص، مع إمكانية الاطلاع على المستندات المطلوبة مسبقاً.
+تشكيلة متنوعة ومحدّثة
+القرطاسيات والأعمال الفنية
+تصفح الأدوات المكتبية والمجسمات والوسائل التعليمية، وأضف طلباتك للسلة لإرسالها دفعة واحدة عبر الواتساب.
+عروض اقتصادية مجمّعة
+باقات التوفير والعروض المجمّعة
+
+
+تابع حالة طلبك
+أدخل رقم الطلب أو رقم الجوال المسجل لدينا لمعرفة مرحلة تنفيذ معاملتك
+بحث
+
+
+ركن الوسطى للخدمات والقرطاسيات
+شريكك الموثوق لإنجاز الخدمات الطلابية، المعاملات الحكومية والإلكترونية، وتوفير كافة القرطاسيات والأعمال الفنية.
+📱 باركود الموقع للطباعة
+🔗 شارك رابط المكتبة
+
+
+
+روابط سريعة
+• خدماتنا والموظفون المختصون
+• القرطاسيات والأعمال الفنية
+• باقات التوفير
+• متابعة حالة الطلب
+بيانات التواصل والموقع
+• 📍 المملكة العربية السعودية
+• 🕒 يومياً من 8:00 صباحاً حتى 11:00 مساءً
+• 💬 0500000000
+🗺️ موقعنا على الخريطة
+
+
+© جميع الحقوق محفوظة لـ ركن الوسطى للخدمات والقرطاسيات
+اختر القسم للتواصل المباشر
+✕
+
+
+
+
+💬 تواصل مع المختص
+
+سلة القرطاسيات والأعمال الفنية
+✕
+
+
+💬 إرسال الطلب عبر واتساب للمختص
+
+ركن الوسطى للخدمات والقرطاسيات
+امسح الباركود بكاميرا الجوال للوصول المباشر لأرقام المختصين وقائمة القرطاسيات
+طباعة
+إغلاق
+
+
+let appData = {
+settings: {
+announcement: "مرحباً بكم في ركن الوسطى — إنجاز فوري للخدمات الطلابية والحكومية وتشكيلة متكاملة من القرطاسيات والأعمال الفنية",
+generalWa: "0500000000", salesWa: "0500000005",
+address: "المملكة العربية السعودية", hours: "يومياً من 8:00 صباحاً حتى 11:00 مساءً",
+mapUrl: "google.com"
+},
+services: [
+{ name: "خدمات الطالب والبحوث الجامعية", desc: "إعداد وتنسيق البحوث، العروض التقديمية (بوربوينت)، التلخيص، وتصميم السير الذاتية.", specialist: "أ. محمد - مختص الخدمات الأكاديمية", phone: "0500000001", status: "متاح", reqs: ["عنوان البحث أو الموضوع", "عدد الصفحات المطلوبة", "موعد التسليم المحدد"] },
+{ name: "الخدمات الحكومية الإلكترونية", desc: "إنجاز معاملات أبشر، ناجز، حساب المواطن، الضمان الاجتماعي المطور، والتأمينات.", specialist: "أ. عبدالله - مختص البوابات الحكومية", phone: "0500000002", status: "متاح", reqs: ["رقم الهوية الوطنية", "رقم الجوال المسجل في أبشر", "تفاصيل المعاملة المطلوبة"] },
+{ name: "خدمات الجوازات والعمالة وقوى", desc: "إصدار وتجديد الإقامات، تأشيرات الخروج والعودة، ربط التأمين الطبي، ونقل الكفالة.", specialist: "أ. فهد - مختص شؤون العمالة", phone: "0500000003", status: "متاح", reqs: ["رقم إقامة العامل", "رقم المنشأة أو الكفيل", "صورة الجواز ساري المفعول"] },
+{ name: "خدمات الأعمال والسجلات التجارية", desc: "إصدار وتعديل السجلات التجارية، العنوان الوطني للأعمال، وفتح ملفات المنشآت.", specialist: "أ. خالد - مختص قطاع الأعمال", phone: "0500000004", status: "متاح", reqs: ["اسم المؤسسة المقترح", "نوع النشاط التجاري", "بيانات العنوان الوطني"] },
+{ name: "الطباعة والتغليف والتصميم الرقمي", desc: "طباعة المستندات والملفات الملونة والعادية، التصوير، والتغليف الحراري والحلزوني.", specialist: "أ. سعد - مختص الطباعة والتصميم", phone: "0500000005", status: "متاح", reqs: ["إرسال الملف بصيغة PDF", "تحديد نوع الطباعة (ملون / أسود)", "تحديد نوع التغليف"] },
+{ name: "القبول الجامعي والتقديم على الوظائف", desc: "التقديم على الجامعات والكليات، المعاهد التقنية، والوظائف الحكومية والخاصة بدقة.", specialist: "أ. ناصر - مختص القبول والتسجيل", phone: "0500000006", status: "متاح", reqs: ["صورة شهادة الثانوية أو المؤهل", "نتائج القدرات والتحصيلي", "ترتيب الرغبات المطلوبة"] }
+],
+products: [
+{ name: "مجسم المجموعة الشمسية التعليمي", desc: "مجسم يدوي متقن للمشاريع المدرسية والأنشطة الطلابية", category: "أعمال فنية ومجسمات مدرسية", price: "45", stock: 8, img: "unsplash.com" },
+{ name: "لوحة وسائل تعليمية (فلين مقوى)", desc: "لوحة عرض مدرسية مقاس كبير جاهزة للتنسيق والطباعة", category: "لوحات ووسائل تعليمية", price: "25", stock: 15, img: "unsplash.com" },
+{ name: "طقم ألوان أكريليك وفرش رسم 12 لون", desc: "ألوان عالية الجودة للأعمال الفنية واللوحات المدرسية", category: "أدوات رسم وتلوين", price: "30", stock: 12, img: "unsplash.com" },
+{ name: "دفتر سلك جامعي مقسم 200 ورقة", desc: "ورق أبيض ناعم عالي الجودة بغلاف مقوى", category: "دفاتر وأوراق", price: "14", stock: 30, img: "unsplash.com" },
+{ name: "ملف إنجاز طالب شفاف مع فواصل", desc: "ملف تنظيم الأوراق والبحوث المدرسية والجامعية", category: "ملفات وتغليف", price: "10", stock: 25, img: "unsplash.com" },
+{ name: "طقم أدوات هندسية كامل معدن", desc: "علبة هندسة متكاملة للمراحل الدراسية", category: "أدوات رسم وتلوين", price: "18", stock: 0, img: "unsplash.com" }
+],
+packages: [
+{ name: "باقة الطالب الجامعي", items: "تنسيق بحث متكامل + تصميم عرض بوربوينت احترافي + طباعة وتغليف حراري", price: "عرض خاص", phone: "0500000001" },
+{ name: "باقة الأعمال الفنية والمدرسية", items: "تنفيذ مجسم أو لوحة فنية حسب الطلب + أدوات رسم وقرطاسية مساندة", price: "عرض خاص", phone: "0500000005" },
+{ name: "باقة العودة للمدارس", items: "تشكيلة دفاتر وأقلام وملفات متكاملة مجهزة حسب المرحلة الدراسية", price: "عرض خاص", phone: "0500000005" },
+{ name: "باقة بدء الأعمال والمنشآت", items: "إصدار سجل تجاري + تسجيل عنوان وطني للأعمال + فتح ملف منشأة في قوى", price: "عرض خاص", phone: "0500000004" }
+],
+orders: [
+{ id: "1001", phone: "0500000000", desc: "تنسيق وطباعة بحث", status: "جاهز للاستلام" },
+{ id: "1002", phone: "0555555555", desc: "مجسم فني مدرسي", status: "جاري التنفيذ" }
+]
+};
+let cart = []; let selectedCategory = "الكل";
+function formatWaLink(phone, message = "") {
+let clean = String(phone || "").replace(/\D/g, "");
+if (clean.startsWith("05")) clean = "966" + clean.substring(1);
+else if (clean.startsWith("5") && clean.length === 9) clean = "966" + clean;
+if (!clean) clean = "966500000000";
+return https://wa.me{clean}${message ? ?text=${encodeURIComponent(message)} : ""};
+}
+async function loadFromGoogleSheet() {
+if (!GOOGLE_SHEET_CSV_URL || GOOGLE_SHEET_CSV_URL.includes("ضع_رابط")) { renderAll(); return; }
+try {
+const res = await fetch(GOOGLE_SHEET_CSV_URL);
+const csvText = await res.text();
+const rows = csvText.split(/\r?\n/).map(r => r.split(","));
+if (rows.length > 1) {
+const ns = [], np = [], npk = [], no = [];
+for (let i = 1; i < rows.length; i++) {
+const [type, name, details, catOrSpec, phoneOrPrice, statusOrStock, extra] = rows[i].map(c => (c || "").replace(/^"|"$/g, "").trim());
+if (!type || !name) continue;
+if (type === "خدمة") ns.push({ name, desc: details, specialist: catOrSpec, phone: phoneOrPrice, status: statusOrStock || "متاح", reqs: extra ? extra.split("-").map(x => x.trim()) : [] });
+else if (type === "منتج") np.push({ name, desc: details, category: catOrSpec || "قرطاسيات", price: phoneOrPrice, stock: parseInt(statusOrStock) || 0, img: extra || "unsplash.com" });
+else if (type === "باقة") npk.push({ name, items: details, price: phoneOrPrice || "عرض خاص", phone: extra || appData.settings.generalWa });
+else if (type === "طلب") no.push({ id: name, desc: details, phone: phoneOrPrice, status: statusOrStock || "تم استلام الطلب" });
+else if (type === "اعدادات") {
+if (name === "واتساب_عام") appData.settings.generalWa = details;
+if (name === "واتساب_المبيعات") appData.settings.salesWa = details;
+if (name === "شريط_اعلاني") appData.settings.announcement = details;
+if (name === "اوقات_العمل") appData.settings.hours = details;
+if (name === "العنوان") appData.settings.address = details;
+if (name === "رابط_الخريطة") appData.settings.mapUrl = details;
+}
+}
+if (ns.length) appData.services = ns;
+if (np.length) appData.products = np;
+if (npk.length) appData.packages = npk;
+if (no.length) appData.orders = no;
+}
+} catch (e) {}
+renderAll();
+}
+function renderAll() {
+const annBar = document.getElementById("announcement-bar");
+if (appData.settings.announcement) { document.getElementById("announcement-text").textContent = appData.settings.announcement; annBar.classList.remove("hidden"); }
+else annBar.classList.add("hidden");
+document.getElementById("hero-wa-btn").href = formatWaLink(appData.settings.generalWa, "السلام عليكم، أرغب بالاستفسار عن خدمات ركن الوسطى");
+document.getElementById("footer-address").textContent = appData.settings.address;
+document.getElementById("footer-hours").textContent = appData.settings.hours;
+const waL = document.getElementById("footer-wa-link"); waL.textContent = appData.settings.generalWa; waL.href = formatWaLink(appData.settings.generalWa);
+document.getElementById("footer-map-btn").href = appData.settings.mapUrl;
+document.getElementById("services-grid").innerHTML = appData.services.map((s, i) => {
+const ok = s.status.includes("متاح") && !s.status.includes("غير");
+return `
+
+
+
+${s.name}
+${ok ? '● متاح الآن' : '● غير متاح'}
+${s.desc}
+${s.reqs.length ? `📄 المستندات المطلوبة ▾
+{s.reqs.map(r => `<li>{r}`).join("")}
+` : ""}
+👤 ${s.specialist}${s.phone}
+💬 تواصل مع المختص واتساب
+
+`;
+}).join("");
+document.getElementById("floating-wa-list").innerHTML = appData.services.map(s => <a href="${formatWaLink(s.phone,السلام عليكم، بخصوص: ${s.name})}" target="_blank" class="float-item"> <div style="font-weight:700;">${s.name}</div> <div style="color:#6B7280;display:flex;justify-content:space-between;margin-top:2px;"><span>${s.specialist}</span><span dir="ltr">${s.phone}</span></div> </a>).join("");
+const cats = ["الكل", ...new Set(appData.products.map(p => p.category))];
+document.getElementById("category-filters").innerHTML = cats.map(c =>  <button onclick="selectedCategory='${c}';renderAll()" class="filter-btn ${selectedCategory === c ? 'active' : ''}">${c}</button>).join("");
+const filtered = selectedCategory === "الكل" ? appData.products : appData.products.filter(p => p.category === selectedCategory);
+document.getElementById("products-grid").innerHTML = filtered.map(p => {
+const ok = p.stock > 0;
+return <div class="prod-card"> <div> <div class="prod-img"><img src="${p.img}" alt="${p.name}" /><span class="prod-cat">${p.category}</span></div> <div class="prod-body"> <span class="status-pill ${ok ? 'status-on' : 'status-off'}">${ok ?متوفر (${p.stock} قطعة)` : 'نفدت الكمية'}
+${p.name}
+${p.desc}
+${p.price ? p.price + ' ر.س' : 'تواصل للسعر'}
+
+
+
+<button onclick="addToCart('${p.name.replace(/'/g, "\'")}','${p.price}')" ${!ok ? 'disabled' : ''} class="btn" style="flex:1;background:${ok ? '#1A1A1A' : '#D1D5DB'};color:#fff;font-size:12px;">+ أضف للسلة
+💬
+
+`;
+}).join("");
+document.getElementById("packages-grid").innerHTML = appData.packages.map(pkg => `
+
+
+${pkg.price}
+${pkg.name}
+${pkg.items}
+💬 اطلب الباقة الآن
+`).join("");
+}
+function addToCart(name, price) {
+const f = cart.find(i => i.name === name);
+if (f) f.qty++; else cart.push({ name, price, qty: 1 });
+updateCartUI();
+}
+function updateCartUI() {
+const total = cart.reduce((s, i) => s + i.qty, 0);
+const b = document.getElementById("cart-badge"); b.textContent = total; b.classList.toggle("hidden", total === 0);
+document.getElementById("cart-items").innerHTML = cart.length ? cart.map((it, i) =>  <div style="display:flex;justify-content:space-between;align-items:center;background:var(--light);padding:10px;border-radius:8px;"> <div><div style="font-weight:700;font-size:14px;">${it.name}</div><div style="font-size:12px;color:#6B7280;">الكمية: ${it.qty}</div></div> <div style="display:flex;gap:6px;"> <button onclick="cart[${i}].qty--;if(cart[${i}].qty<=0)cart.splice(${i},1);updateCartUI()" style="padding:4px 10px;border-radius:6px;background:#fff;border:1px solid #ccc;">-</button> <button onclick="cart[${i}].qty++;updateCartUI()" style="padding:4px 10px;border-radius:6px;background:#fff;border:1px solid #ccc;">+</button> </div> </div>).join("") : <p style="text-align:center;color:#9CA3AF;padding:20px;">السلة فارغة حالياً</p>;
+}
+function toggleCart() { updateCartUI(); document.getElementById("cart-modal").classList.toggle("hidden"); }
+function sendCartToWhatsApp() {
+if (!cart.length) return;
+let m = "السلام عليكم، أرغب بطلب الأصناف التالية من ركن الوسطى:\n\n";
+cart.forEach((it, i) => m += ${i + 1}. ${it.name} — الكمية: (${it.qty})\n);
+window.open(formatWaLink(appData.settings.salesWa, m), "_blank");
+}
+function trackOrder() {
+const q = document.getElementById("track-input").value.trim();
+const box = document.getElementById("track-result");
+if (!q) return;
+const f = appData.orders.find(o => o.id === q || o.phone.includes(q));
+box.classList.remove("hidden");
+if (!f) { box.style.background = "#FEF2F2"; box.style.color = "#9E1B1E"; box.innerHTML = "لم يتم العثور على طلب بهذا الرقم."; return; }
+box.style.background = "#ECFDF5"; box.style.color = "#15803D";
+box.innerHTML = <strong>رقم الطلب #${f.id}</strong><br>الحالة الحالية: <strong>${f.status}</strong><br><small>${f.desc}</small>;
+}
+function openQrModal() {
+document.getElementById("qr-image").src = https://qrserver.com{encodeURIComponent(window.location.href)};
+document.getElementById("qr-modal").classList.remove("hidden");
+}
+function shareSiteWhatsApp() {
+window.open(https://wa.me{encodeURIComponent("تفضل بزيارة موقع ركن الوسطى للخدمات والقرطاسيات:\n" + window.location.href)}, "_blank");
+}
+loadFromGoogleSheet();
+
+
+
+### ملاحظة مهمة:
+* هذا الكود **مكتفٍ ذاتياً بالكامل** ولا يعتمد على أي مكتبات خارجية لتحميل الألوان أو التخطيط، لذلك بمجرد حفظه وتحديث الرابط بعد 30 ثانية ستظهر جميع البطاقات والألوان والأقسام متكاملة فوراً.
