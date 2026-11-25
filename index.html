@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ركن الوسطى للخدمات والقرطاسيات</title>
+  <script src="https://tailwindcss.com"></script>
+  <link href="https://googleapis.com" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cloudflare.com" />
+  <style>
+    body { font-family: 'Cairo', sans-serif; background-color: #FFFFFF; color: #1A1A1A; scroll-behavior: smooth; }
+    .bg-primary { background-color: #9E1B1E; }
+    .bg-primary:hover { background-color: #7A1316; }
+    .text-primary { color: #9E1B1E; }
+    .border-primary { border-color: #9E1B1E; }
+    .bg-secondary { background-color: #15803D; }
+    .bg-secondary:hover { background-color: #116630; }
+    .text-secondary { color: #15803D; }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- =========================================================
+       إعدادات الربط السريع (ضع رابط Google Sheets CSV هنا)
+       ملاحظة: الموقع يعمل ببيانات افتراضية جاهزة حتى تضع رابطك
+  ========================================================== -->
+  <script>
+    const GOOGLE_SHEET_CSV_URL = "ضع_رابط_ملف_جوجل_CSV_هنا";
+  </script>
+
+  <!-- الشريط الإعلاني العلوي -->
+  <div id="announcement-bar" class="bg-primary text-white text-center text-sm py-2 px-4 font-semibold">
+    <span id="announcement-text">مرحباً بكم في ركن الوسطى — إنجاز فوري للخدمات الطلابية والحكومية وتشكيلة متكاملة من القرطاسيات والأعمال الفنية</span>
+  </div>
+
+  <!-- شريط التنقل العلوي -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-primary text-white flex items-center justify-center font-extrabold text-xl shadow">ر</div>
+        <div>
+          <span class="font-extrabold text-lg text-[#1A1A1A] block leading-tight">ركن الوسطى</span>
+          <span class="text-xs text-gray-500 block">للخدمات والقرطاسيات</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-bold text-gray-700">
+        <a href="#hero" class="hover:text-primary transition">الرئيسية</a>
+        <a href="#services" class="hover:text-primary transition">خدماتنا والمختصون</a>
+        <a href="#store" class="hover:text-primary transition">القرطاسيات والأعمال الفنية</a>
+        <a href="#packages" class="hover:text-primary transition">باقات التوفير</a>
+        <a href="#tracking" class="hover:text-primary transition">تابع طلبك</a>
+        <a href="#contact" class="hover:text-primary transition">تواصل معنا</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button onclick="toggleCart()" class="relative p-2.5 rounded-lg border border-gray-200 hover:bg-gray-50 text-[#1A1A1A]" title="سلة الطلبات">
+          <i class="fa-solid fa-cart-shopping text-lg"></i>
+          <span id="cart-badge" class="hidden absolute -top-1.5 -right-1.5 bg-primary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+        </button>
+        <a href="#services" class="hidden sm:inline-block bg-primary text-white text-sm font-bold px-4 py-2.5 rounded-lg transition shadow-sm">
+          اطلب خدمتك الآن
+        </a>
+        <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden p-2 rounded-lg border border-gray-200">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- قائمة الجوال -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-4 py-3 space-y-2 text-sm font-bold">
+      <a href="#hero" onclick="closeMobileMenu()" class="block py-2 hover:text-primary">الرئيسية</a>
+      <a href="#services" onclick="closeMobileMenu()" class="block py-2 hover:text-primary">خدماتنا والمختصون</a>
+      <a href="#store" onclick="closeMobileMenu()" class="block py-2 hover:text-primary">القرطاسيات والأعمال الفنية</a>
+      <a href="#packages" onclick="closeMobileMenu()" class="block py-2 hover:text-primary">باقات التوفير</a>
+      <a href="#tracking" onclick="closeMobileMenu()" class="block py-2 hover:text-primary">تابع طلبك</a>
+      <a href="#contact" onclick="closeMobileMenu()" class="block py-2 hover:text-primary">تواصل معنا</a>
+    </div>
+  </header>
+
+  <!-- القسم الرئيسي (Hero) -->
+  <section id="hero" class="py-12 md:py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-center">
+      <div class="space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 text-secondary text-xs font-bold border border-green-200">
+          <span class="w-2 h-2 rounded-full bg-secondary"></span>
+          سرعة في الإنجاز • دقة في التنفيذ • سرية تامة
+        </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#1A1A1A] leading-tight">
+          وجهتك المتكاملة لـ<span class="text-primary">خدمات الطالب والخدمات الحكومية</span> والقرطاسيات والأعمال الفنية
+        </h1>
+        <p class="text-gray-600 text-base sm:text-lg leading-relaxed">
+          ننجز معاملاتك الإلكترونية، البحوث والتصاميم الطلابية، خدمات المنصات الحكومية، ونوفر كافة القرطاسيات والأعمال الفنية بأعلى معايير الجودة والموثوقية.
+        </p>
+        <div class="flex flex-wrap gap-3 pt-2">
+          <a id="hero-whatsapp-btn" href="https://wa.me" target="_blank" class="bg-secondary text-white font-bold px-6 py-3.5 rounded-lg shadow hover:shadow-md transition flex items-center gap-2">
+            <i class="fa-brands fa-whatsapp text-xl"></i>
+            اطلب خدمتك عبر الواتساب
+          </a>
+          <a href="#services" class="border-2 border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white font-bold px-6 py-3.5 rounded-lg transition">
+            استعرض خدماتنا ومنتجاتنا
+          </a>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-100 bg-[#F9FAFB] p-6">
+          <img src="https://unsplash.com" alt="مكتبة ركن الوسطى" class="w-full h-72 sm:h-80 object-cover rounded-xl" />
+          <div class="mt-4 grid grid-cols-2 gap-3 text-center">
+            <div class="bg-white p-3 rounded-lg border border-gray-100">
+              <i class="fa-solid fa-shield-halved text-secondary text-xl mb-1"></i>
+              <p class="font-bold text-sm">خصوصية وأمان تام</p>
+            </div>
+            <div class="bg-white p-3 rounded-lg border border-gray-100">
+              <i class="fa-solid fa-bolt text-primary text-xl mb-1"></i>
+              <p class="font-bold text-sm">ربط مباشر بالمختص</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- شريط الإحصائيات -->
+  <section class="bg-[#F9FAFB] border-y border-gray-200 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+        <div class="text-2xl sm:text-3xl font-extrabold text-primary">+1500</div>
+        <div class="text-xs sm:text-sm font-bold text-gray-600 mt-1">معاملة منجزة بنجاح</div>
+      </div>
+      <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+        <div class="text-2xl sm:text-3xl font-extrabold text-secondary">+800</div>
+        <div class="text-xs sm:text-sm font-bold text-gray-600 mt-1">طالب وباحث تم دعمهم</div>
+      </div>
+      <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+        <div class="text-2xl sm:text-3xl font-extrabold text-[#1A1A1A]">100%</div>
+        <div class="text-xs sm:text-sm font-bold text-gray-600 mt-1">سرية وحماية للبيانات</div>
+      </div>
+      <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+        <div class="text-2xl sm:text-3xl font-extrabold text-primary">24/7</div>
+        <div class="text-xs sm:text-sm font-bold text-gray-600 mt-1">استقبال الطلبات إلكترونياً</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- قسم الخدمات والموظفين المختصين -->
+  <section id="services" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-primary font-bold text-sm">تواصل مباشر مع المختص</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1A1A1A] mt-1">خدماتنا المتكاملة وفريق العمل</h2>
+        <p class="text-gray-600 text-sm mt-2">اختر الخدمة المطلوبة وتواصل مباشرة عبر الواتساب مع الموظف المختص، مع إمكانية الاطلاع على المستندات المطلوبة مسبقاً.</p>
+      </div>
+
+      <div id="services-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- يتم تعبئتها تلقائياً عبر الجافاسكربت -->
+      </div>
+    </div>
+  </section>
+
+  <!-- قسم القرطاسيات والأعمال الفنية -->
+  <section id="store" class="py-16 bg-[#F9FAFB] border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-8">
+        <span class="text-secondary font-bold text-sm">تشكيلة متنوعة ومحدّثة</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1A1A1A] mt-1">القرطاسيات والأعمال الفنية</h2>
+        <p class="text-gray-600 text-sm mt-2">تصفح الأدوات المكتبية والمجسمات والوسائل التعليمية، وأضف طلباتك للسلة لإرسالها دفعة واحدة عبر الواتساب.</p>
+      </div>
+
+      <!-- فلاتر التصنيف -->
+      <div id="category-filters" class="flex flex-wrap justify-center gap-2 mb-8">
+        <!-- أزرار الفلترة -->
+      </div>
+
+      <!-- شبكة المنتجات -->
+      <div id="products-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
